@@ -1,5 +1,5 @@
 import { Play } from 'phosphor-react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import {
   CountDownContainer,
   FormContainer,
@@ -11,14 +11,14 @@ import {
 } from './styles'
 
 export function Home() {
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, control } = useForm()
 
   function handleCreateNewCycle(data: any) {
     console.log(data)
   }
 
-  const task = watch('task')
-  const isSubmiteDisabled = !task
+  const task = useWatch({ control, name: 'task' })
+  const isSubmitDisabled = !task
 
   return (
     <HomeContainer>
@@ -59,7 +59,7 @@ export function Home() {
           <span>0</span>
         </CountDownContainer>
 
-        <StartCountDownButton disabled={isSubmiteDisabled} type="submit">
+        <StartCountDownButton disabled={isSubmitDisabled} type="submit">
           <Play size={24}></Play>
           Começar
         </StartCountDownButton>
